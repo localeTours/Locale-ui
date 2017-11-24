@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-//import fire from './fire.js';
-import firebase from 'firebase';
+import firebase from './fire.js';
+// import firebase from 'firebase';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-//var windowfire = fire;
-import App from './App';
-import Login from './login';
-import Main from './reducers/Main'
+
+import Main from './reducers/Main';
+import { bindActionCreators } from 'redux';
+import { signIn } from './actions';
+
+
 
 
 class Authenticated extends Component{
@@ -19,12 +21,19 @@ class Authenticated extends Component{
   componentDidMount(){
     firebase.auth().onAuthStateChanged((user)=>{
       if (user) {
-        this.setState({userReady:true , uid:user.uid})
+
+        this.setState({userReady:true , user:user})
       } else {
         this.setState({userReady:false})
       }
     });
   }
+
+  componentDidUpdate(){
+    this.props.signIn(this.state);
+  }
+
+
   render(){
     // if(!this.state.userReady){
     //   return(<div>Loading...
@@ -50,6 +59,12 @@ const mapStateToProps = (state) => {
   })
 }
 
-const connectedAuthenticated = withRouter(connect(mapStateToProps)(Authenticated))
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        signIn: signIn
+    }, dispatch)
+}
+
+const connectedAuthenticated = withRouter(connect(mapStateToProps, mapDispatchToProps)(Authenticated))
 
 export default connectedAuthenticated

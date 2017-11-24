@@ -13,8 +13,16 @@ export const setLatLng = () => {
   }
 }
 
-export const signIn = () => {
+export const signIn = (payload) => {
   return {
-    type: 'SIGN_IN'
+      type: 'SIGN_IN',
+      payload: payload
   }
+}
+
+
+export const signOut = () => {
+    return {
+        type: 'SIGN_OUT'
+    }
 }
