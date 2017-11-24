@@ -1,4 +1,4 @@
-export const manageAccount = (state = { isSignedIn: false }, action) => {
+export const manageAccount = (state = { isSignedIn: false, user: null }, action) => {
   switch (action.type) {
     case 'SIGN_IN':
         return Object.assign({}, state, { isSignedIn: true, user:action.payload.user });

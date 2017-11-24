@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import firebase from '../fire';
+import { Redirect } from 'react-router-dom';
+
 
 //Redux Dependencies
 import { connect } from 'react-redux';
@@ -13,34 +15,46 @@ import { signOut } from '../actions/index';
 window.windowFire = firebase;
 
 class Signout extends Component{
+    constructor(){
+        super();
+        this.state={
+            redirect: false
+        }
+
+    }
 
   signout(){
-
 
     firebase.auth().signOut().then(function() {
       // Sign-out successful.
       alert('yoo')
-        debugger
         this.props.signOut();
-    }).catch(function(error) {
+      this.setState({redirect:true});
+
+    }.bind(this) ).catch(function(error) {
       // An error happened.
         alert('This sucks')
     });
   }
 
   render(){
-    return(
-      <div>
-        <button onClick={this.signout.bind(this)}>Signout</button>
-      </div>
-    )
+      if (this.state.redirect) {
+          return <Redirect to='/login'/>;
+      } else {
+          return(
+              <div>
+                  <button onClick={this.signout.bind(this)}>Signout</button>
+              </div>
+          )
+      }
+
   }
 }
 
 
 const mapStateToProps = (state) => {
     return({
-        signOut: state.account.signOut
+        signedIn: state.account.signedIn
     })
 }
 
