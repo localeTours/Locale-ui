@@ -6,7 +6,6 @@ function createUser(firebase){
   //Getting all users
   let userExists = firebase.database().ref()
           .child('users');
-
   //Looping through all users here
   userExists.once('value', snap =>{
     console.log(snap.val())

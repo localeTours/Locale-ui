@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import firebase from 'firebase';
 import { signIn } from './actions';
+import { createUser } from './services/users';
 
 var provider = new firebase.auth.GoogleAuthProvider();
 
@@ -18,6 +19,7 @@ login(){
     var token = result.credential.accessToken;
     // The signed-in user info.
     var user = result.user;
+    this.props.createUser(firebase)
     // ...
   }).catch(function(error) {
     // Handle Errors here.
@@ -35,7 +37,6 @@ login(){
     return (
       <div>
         <button onClick={this.login.bind(this)}>Login</button>
-        <button onClick={() => this.props.signIn()}>Fake Sign In</button>
         <Link to="/map">Go to map</Link>
       </div>
     )
@@ -53,7 +54,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    signIn: signIn
+    signIn: signIn,
+    createUser: createUser
   }, dispatch)
 }
 

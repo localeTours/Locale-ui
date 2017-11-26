@@ -10,15 +10,6 @@ import { setLatLng } from '../actions';
 class MapContainer extends Component {
   componentWillMount() {
     this.props.setLatLng();
-    firebase.auth().onAuthStateChanged((user)=>{
-      if (user) {
-        debugger;
-        this.setState({userReady:true , uid:user.uid})
-      } else {
-        debugger;
-        this.setState({userReady:false})
-      }
-    })
   }
 
   render() {
@@ -38,7 +29,8 @@ class MapContainer extends Component {
             loadingElement={<div style={{ height: `100%` }} />}
             containerElement={<div style={{ height: `100vh` }} />}
             mapElement={<div style={{ height: `100%` }}
-            center={{lat: this.props.map.latLng.lat, lng: this.props.map.latLng.lng}}/>}
+            // center={{lat: this.props.map.latLng.lat, lng: this.props.map.latLng.lng}}/>}
+            center={{lat: 40.678832, lng: -73.950677}}/>}
           />
         </div>
       )

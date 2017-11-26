@@ -13,8 +13,24 @@ export const setLatLng = () => {
   }
 }
 
-export const signIn = () => {
+export const signIn = (user) => {
   return {
-    type: 'SIGN_IN'
+    type: 'SIGN_IN',
+    payload: user
+  }
+}
+
+export const signOut = (firebase) => {
+  return (dispatch) => {
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      // alert('yoo')
+      dispatch({
+        type: 'SIGN_OUT'
+      })
+    }).catch(function(error) {
+      // An error happened.
+        alert('This sucks')
+    });
   }
 }
