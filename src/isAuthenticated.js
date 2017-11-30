@@ -7,8 +7,8 @@ import { withRouter } from 'react-router';
 import Main from './reducers/Main';
 import { bindActionCreators } from 'redux';
 import { signIn } from './actions';
-
-
+// import Login from './login';
+// import { userLoggedIn } from "./userLoggedIn";
 
 
 class Authenticated extends Component{
@@ -19,9 +19,10 @@ class Authenticated extends Component{
     this.state = {userReady:false}
   }
   componentDidMount(){
+
+
     firebase.auth().onAuthStateChanged((user)=>{
       if (user) {
-
         this.setState({userReady:true , user:user})
       } else {
         this.setState({userReady:false})
@@ -35,21 +36,9 @@ class Authenticated extends Component{
 
 
   render(){
-    // if(!this.state.userReady){
-    //   return(<div>Loading...
-    //       <Login/>
-    //     </div>)
-    // } else {
-    //   return(
-    //     <div>
-    //       <App />
-    //     </div>
-    //   )
-    // }
-    return (
-      <Main />
-    )
-
+        return (
+            <Main />
+        )
   }
 }
 
@@ -65,6 +54,6 @@ const mapDispatchToProps = (dispatch) => {
     }, dispatch)
 }
 
-const connectedAuthenticated = withRouter(connect(mapStateToProps, mapDispatchToProps)(Authenticated))
+const connectedAuthenticated = withRouter(connect(mapStateToProps, mapDispatchToProps)(Authenticated));
 
 export default connectedAuthenticated
